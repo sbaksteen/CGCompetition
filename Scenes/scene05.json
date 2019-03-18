@@ -1,0 +1,42 @@
+{
+    "Eye": [200, 200, 1000],
+	"Shadows": true,
+    "Lights": [
+        {
+            "position": [0, 500, 400],
+            "color": [1.0, 1.0, 1.0]
+        }
+    ],
+    "Objects": [
+		{
+            "type": "plane",
+            "comment": "White plane",
+            "position": [200, 100, 1000],
+			"normal": [0,1,0],
+            "material":
+            {
+                "color": [1, 1, 1],
+                "ka": 0.1,
+                "kd": 0.7,
+                "ks": 1,
+                "n": 2048
+            }
+        },
+        {
+            "type": "mesh",
+            "comment": "Some object",
+            "filepath": "../Scenes/cat.obj",
+			"position": [200, 100, 0],
+			"rotationAxis": [0, 1, 0],
+			"angle": -60,
+            "material":
+            {
+                "color": [1, 0.5, 0],
+                "ka": 0.1,
+                "kd": 0.7,
+                "ks": 1,
+                "n": 32
+            }
+        }
+    ]
+}
