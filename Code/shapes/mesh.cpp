@@ -21,11 +21,10 @@ Hit Mesh::intersect(Ray const &ray)
     }
     
     return min_hit;
-	
 }
 
-Mesh::Mesh(vector<Vertex> verts){
+Mesh::Mesh(vector<Vertex> verts, ShadingType s) {
 	for(unsigned i = 0; i < verts.size(); i += 3){
-		triangles.push_back(new Triangle(verts[i], verts[i+1], verts[i+2]));
+		triangles.push_back(new Triangle(verts[i], verts[i+1], verts[i+2], s));
 	}
 }

@@ -12,8 +12,6 @@ class TransformedObject: public Object
         virtual Hit intersect(Ray const &ray);
 		
 		void transform(Matrix44 const &m);
-		
-		virtual Point textureCoordAt(Point const &p);
 
     private:
 		ObjectPtr obj;

@@ -1,4 +1,5 @@
 #include "triangle.h"
+#include "mesh.h"
 
 #include <cmath>
 
@@ -31,22 +32,40 @@ Hit Triangle::intersect(Ray const &ray)
 		return Hit::NO_HIT();
 	}
 
-    Point v1(va.x, va.y, va.z);
-	Point v2(vb.x, vb.y, vb.z);
-	Point v3(vc.x, vc.y, vc.z);
-	
-	Vector N = ((v2 - v1).cross(v3 - v1)).normalized();
+	Vector N;
+	if (s == ShadingType::Flat) {
+		Point v1(va.x, va.y, va.z);
+		Point v2(vb.x, vb.y, vb.z);
+		Point v3(vc.x, vc.y, vc.z);
+		
+		N = ((v2 - v1).cross(v3 - v1)).normalized();
+	}
+	else if (s == ShadingType::Phong) {
+		Vector n1(va.nx, va.ny, va.nz);
+		Vector n2(vb.nx, vb.ny, vb.nz);
+		Vector n3(vc.nx, vc.ny, vc.nz);
+
+		N = (n3*gamma + n2*beta + n1*(1-gamma-beta)).normalized();
+	}
+
+	Point tex = textureCoordAt(beta, gamma);
 	
 	if (N.dot(ray.D) > 0){
-		return Hit(solution, -N);
+		return Hit(solution, -N, tex);
 	}
 	
-    return Hit(solution, N);
+    return Hit(solution, N, tex);
 }
 
-Triangle::Triangle(Vertex a, Vertex b, Vertex c)
+Point Triangle::textureCoordAt(float beta, float gamma) {
+	return Point(va.u + beta*(vb.u-va.u) + gamma*(vc.u-va.u),
+				 1 - (va.v + beta*(vb.v-va.v) + gamma*(vc.v-va.v)));
+}
+
+Triangle::Triangle(Vertex a, Vertex b, Vertex c, ShadingType s)
 :
 	va(a),
 	vb(b),
-	vc(c)
+	vc(c),
+	s(s)
 {}

@@ -50,7 +50,9 @@ Hit Sphere::intersect(Ray const &ray)
 	Vector point = ray.at(solution);
 	Vector N = point;
 
-	return Hit(solution,N.normalized());
+	Point tex = textureCoordAt(point);
+
+	return Hit(solution,N.normalized(), tex);
 
 }
 

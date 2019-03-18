@@ -9,6 +9,14 @@ class Hit
     public:
         double t;   // distance of hit
         Vector N;   // Normal at hit
+        Point texPt;
+
+        Hit(double time, Vector const &normal, Point texPt)
+        :
+            t(time),
+            N(normal),
+            texPt(texPt)
+        {}
 
         Hit(double time, Vector const &normal)
         :
@@ -20,6 +28,9 @@ class Hit
         {
             static Hit no_hit(std::numeric_limits<double>::quiet_NaN(),
                               Vector(std::numeric_limits<double>::quiet_NaN(),
+                                     std::numeric_limits<double>::quiet_NaN(),
+                                     std::numeric_limits<double>::quiet_NaN()),
+                              Point(std::numeric_limits<double>::quiet_NaN(),
                                      std::numeric_limits<double>::quiet_NaN(),
                                      std::numeric_limits<double>::quiet_NaN()));
             return no_hit;

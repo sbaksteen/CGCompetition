@@ -17,6 +17,7 @@ class Scene
     std::vector<LightPtr> lights;   // no ptr needed, but kept for consistency
     Point eye;
 	bool shadows = false;
+    int cel = 0;
 	int maxDepth = 0;
 	int sampleFactor = 1;
 
@@ -34,6 +35,9 @@ class Scene
         void addLight(Light const &light);
         void setEye(Triple const &position);
 		void setShadows(bool s);
+        void setCel(int c) {
+            cel = c;
+        }
 		void setMaxDepth(int m);
 		void setSampleFactor(int s);
 

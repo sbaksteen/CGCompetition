@@ -15,6 +15,7 @@ class Material
 		
 		Color color;
 		Image *image;
+		Image *normalMap = nullptr;
 		TextureType type;
         double ka;          // ambient intensity
         double kd;          // diffuse intensity
@@ -53,6 +54,21 @@ class Material
 					return image->colorAt(u, v);
 			}
 		}
+
+		Vector normalAt(double u, double v) {
+			Color nc = normalMap->colorAt(u, v); // assumes normal map not null
+			return 2*nc - 1;
+		}
+
+		void setNorm(Image* im) {
+			normalMap = im;
+		}
+
+		bool hasNorm() {
+			return normalMap != nullptr;
+		}
+
+
 		
 			
 };

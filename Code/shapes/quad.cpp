@@ -25,6 +25,6 @@ Hit Quad::intersect(Ray const &ray)
 }
 
 Quad::Quad(Vertex a, Vertex b, Vertex c, Vertex d){
-	t1 = new Triangle(a,b,c);
-	t2 = new Triangle(a,c,d);
+	t1 = new Triangle(a,b,c, ShadingType::Flat);
+	t2 = new Triangle(a,c,d, ShadingType::Flat);
 }

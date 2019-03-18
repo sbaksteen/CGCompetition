@@ -4,6 +4,7 @@
 #include "image.h"
 #include "material.h"
 #include "ray.h"
+#include "matrix.h"
 
 #include <cmath>
 #include <limits>
@@ -65,7 +66,25 @@ Color Scene::trace(Ray const &ray, int depth)
     
     Color color = Color(0.0, 0.0, 0.0);
 	
-	Point texCoord = obj->textureCoordAt(hit);
+	Point texCoord = min_hit.texPt;
+    if (material.hasNorm()) {
+        Vector M = material.normalAt(texCoord.x, texCoord.y).normalized();
+        Vector t = N.cross(Vector(0, 1, 0));
+        if (t.length() == 0) {
+            t = N.cross(Vector(0, 0, 1));
+        }
+        Vector b = N.cross(t);
+        Matrix44 tbn;
+        for (int i = 0; i < 3; i++) {
+            tbn[i][0] = t.data[i];
+            tbn[i][1] = b.data[i];
+            tbn[i][2] = N.data[i];
+        }
+        N = tbn * M;
+    }
+    if (N.dot(ray.D) > 0) {
+        N = -N;
+    }
 	Color matC = material.colorAt(texCoord.x, texCoord.y);
     
     for (unsigned i = 0; i < getNumLights(); i++){
@@ -86,7 +105,11 @@ Color Scene::trace(Ray const &ray, int depth)
 				continue;
 			}
 		}
-		color += fmax(0,L.dot(N)) * matC * light->color * material.kd; //Diffuse
+        double diff = fmax(0, L.dot(N));
+        if (cel) {
+            diff = ceil(diff*cel)/cel;
+        }
+		color += diff * matC * light->color * material.kd; //Diffuse
 		color += pow(fmax(0, R.dot(V)), material.n) * light->color * material.ks; //Specular
 	}
 	

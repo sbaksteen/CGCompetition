@@ -12,7 +12,7 @@ using namespace std;
 class Mesh: public Object
 {
     public:
-        Mesh(vector<Vertex> verts);
+        Mesh(vector<Vertex> verts, ShadingType s);
 
         virtual Hit intersect(Ray const &ray);
         

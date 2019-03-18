@@ -68,7 +68,7 @@ bool Raytracer::parseObjectNode(json const &node)
 		Vertex a = {node["verts"][0][0], node["verts"][0][1], node["verts"][0][2]};
 		Vertex b = {node["verts"][1][0], node["verts"][1][1], node["verts"][1][2]};
 		Vertex c = {node["verts"][2][0], node["verts"][2][1], node["verts"][2][2]};
-		obj = ObjectPtr(new Triangle(a, b, c));
+		obj = ObjectPtr(new Triangle(a, b, c, ShadingType::Flat));
 	}
 	else if (node["type"] == "quad")
     {	
@@ -91,11 +91,17 @@ bool Raytracer::parseObjectNode(json const &node)
 	else if (node["type"] == "mesh")
 	{
 		string const fp =  node["filepath"];
+		ShadingType s = ShadingType::Flat;
+		if (node.count("shading")) {
+			if (node["shading"] == "phong") {
+				s = ShadingType::Phong;
+			}
+		}
 		OBJLoader* mesh = new OBJLoader(fp);
 		vector<Vertex> verts = mesh->vertex_data();
 		vector<Vertex> unitizedVerts = mesh->unitize(verts);
 		vector<Vertex> scaledVerts = mesh->scale(200, unitizedVerts);
-		obj = ObjectPtr(new Mesh(scaledVerts));
+		obj = ObjectPtr(new Mesh(scaledVerts, s));
 	}
 	else 
     {
@@ -167,15 +173,23 @@ Material Raytracer::parseMaterialNode(json const &node) const
     double kd = node["kd"];
     double ks = node["ks"];
     double n  = node["n"];
+	Material m;
 	if (node.count("color")) {
 		Color color(node["color"]);
-		return Material(color, ka, kd, ks, n);
+		m = Material(color, ka, kd, ks, n);
 	} else {
 		string filename = path;
 		filename += node["texture"];
 		Image* image = new Image(filename);
-		return Material(image, ka, kd, ks, n);
+		m = Material(image, ka, kd, ks, n);
 	}
+	if (node.count("normals")) {
+		string filename = path;
+		filename += node["normals"];
+		Image* image = new Image(filename);
+		m.setNorm(image);
+	}
+	return m;
 }
 
 bool Raytracer::readScene(string const &ifname)
@@ -197,6 +211,11 @@ try
     scene.setEye(eye);
 
     // TODO: add your other configuration settings here
+
+	if (jsonscene.count("Cel")) {
+		int cel(jsonscene["Cel"]);
+		scene.setCel(cel);
+	}
 	
 	if (!jsonscene["Shadows"].is_null()) {
 		bool shadows(jsonscene["Shadows"]);

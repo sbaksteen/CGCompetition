@@ -21,10 +21,6 @@ class Object
 
         virtual Hit intersect(Ray const &ray) = 0;  // must be implemented
                                                     // in derived class
-													
-		virtual Point textureCoordAt(Point const &p) {
-			return Point(0, 0, 0);
-		}
 };
 
 #endif

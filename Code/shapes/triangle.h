@@ -4,16 +4,27 @@
 #include "../object.h"
 #include "../vertex.h"
 
+enum class ShadingType {
+	Flat,
+	Phong
+};
+
 class Triangle: public Object
 {
     public:
-        Triangle(Vertex a, Vertex b, Vertex c);
+        Triangle(Vertex a, Vertex b, Vertex c, ShadingType s);
 
         virtual Hit intersect(Ray const &ray);
+
 
         Vertex va;
         Vertex vb;
         Vertex vc;
+
+        ShadingType s = ShadingType::Flat;
+
+    private:
+        Point textureCoordAt(float beta, float gamma);
 };
 
 #endif

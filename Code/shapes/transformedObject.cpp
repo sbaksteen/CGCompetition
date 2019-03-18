@@ -24,8 +24,3 @@ void TransformedObject::transform(Matrix44 const &m) {
 	transformMat *= m;
 	transformInv = transformMat.inverse();
 }
-
-
-Point TransformedObject::textureCoordAt(Point const &p) {
-	return obj->textureCoordAt(transformInv * p);
-}

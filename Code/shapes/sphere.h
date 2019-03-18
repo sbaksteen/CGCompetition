@@ -12,7 +12,8 @@ class Sphere: public Object
 		
         double const r;
 		
-		virtual Point textureCoordAt(Point const &p);
+    private:
+        Point textureCoordAt(Point const &p);
 };
 
 #endif
