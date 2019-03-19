@@ -3,51 +3,26 @@
 #include <cmath>
 
 #include <iostream>
+#include <algorithm>
 
 #include "polyroots.h"
 
 using namespace std;
 
-Hit Sphere::intersect(Ray const &ray)
-{
-    /****************************************************
-    * RT1.1: INTERSECTION CALCULATION
-    *
-    * Given: ray, position, r
-    * Sought: intersects? if true: *t
-    *
-    * Insert calculation of ray/sphere intersection here.
-    *
-    * You have the sphere's center (C) and radius (r) as well as
-    * the ray's origin (ray.O) and direction (ray.D).
-    *
-    * If the ray does not intersect the sphere, return false.
-    * Otherwise, return true and place the distance of the
-    * intersection point from the ray origin in *t (see example).
-    ****************************************************/
-
-    // place holder for actual intersection calculation
-
-	double solution = minPos(intersects(ray));
-	if (solution < 0) {
-		return Hit::NO_HIT();
+std::vector<Interval> Sphere::intervals(Ray const &ray) {
+	std::vector<Interval> is;
+	std::vector<double> ts = intersects(ray);
+	std::sort(ts.begin(), ts.end());
+	std::vector<Hit> hits;
+	for (int i = 0; i < ts.size(); i++) {
+		Vector N = ray.at(ts[i]);
+		Point tex = textureCoordAt(N);
+		hits.push_back(Hit(ts[i], N.normalized(), tex, &material));
 	}
-	
-	/****************************************************
-	* RT1.2: NORMAL CALCULATION
-	*
-	* Given: t, C, r
-	* Sought: N
-	*
-	* Insert calculation of the sphere's normal at the intersection point.
-	****************************************************/
-	Vector point = ray.at(solution);
-	Vector N = point;
-
-	Point tex = textureCoordAt(point);
-
-	return Hit(solution,N.normalized(), tex);
-
+	for (int i = 0; i < hits.size(); i += 2) {
+		is.push_back(Interval(hits[i], hits[i+1]));
+	}
+	return is;
 }
 
 std::vector<double> Sphere::intersects(Ray const &ray) {

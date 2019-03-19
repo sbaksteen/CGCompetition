@@ -69,6 +69,10 @@ Triple Triple::operator*(double f) const
     return Triple(x * f, y * f, z * f);
 }
 
+Triple Triple::operator/(Triple const &t) const {
+    return Triple(x / t.x, y / t.y, z / t.z);
+}
+
 Triple Triple::operator/(double f) const
 {
     double invf = 1.0 / f;

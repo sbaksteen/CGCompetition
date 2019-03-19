@@ -10,9 +10,9 @@ class Sphere: public ClosedObject
     public:
         Sphere(double radius);
 
-        virtual Hit intersect(Ray const &ray);
+        virtual std::vector<Interval> intervals (Ray const &ray);
 
-        virtual std::vector<double> intersects(Ray const &ray);
+        std::vector<double> intersects(Ray const &ray);
 		
         double const r;
 		

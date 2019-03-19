@@ -1,7 +1,7 @@
 {
     "Eye": [200, 200, 1000],
-    "Cel": 2,
     "Shadows": true,
+	"Cel": 0,
     "SuperSamplingFactor": 4,
     "Lights": [
         {
@@ -24,20 +24,42 @@
                 "n": 64
             }
         },
-        {
-            "type": "sphere",
-            "comment": "Green sphere",
-            "position": [210, 270, 300],
-            "radius": 50,
-            "material":
-            {
-                "color": [0.0, 1.0, 0.0],
-                "ka": 0.2,
-                "kd": 0.3,
-                "ks": 0,
-                "n": 8
-            }
-        },
+		{
+			"type": "intersection",
+			"a": {
+				"type": "box",
+				"vmin": [-30, -30, -30],
+				"vmax": [30, 30, 30],
+				"rotationAxis": [0, 1, 0],
+				"angle": 45,
+				"material": {
+					"texture": "wood.png",
+					"normals": "woodn.png",
+					"ka": 0.2,
+					"kd": 0.7,
+					"ks": 0,
+					"n": 8
+				}
+			},
+			"b": {
+				"type": "sphere",
+				"comment": "Green sphere",
+				"radius": 40,
+				"rotationAxis": [1, 0, 0],
+				"angle": 90,
+				"material":
+				{
+					"texture": "wood.png",
+					"normals": "woodn.png",
+					"ka": 0.2,
+					"kd": 0.7,
+					"ks": 0,
+					"n": 8
+				}
+			},
+			"position": [210, 270, 300],
+			"uniformScale": 5
+		},
         {
             "type": "sphere",
             "comment": "Red sphere",
@@ -52,39 +74,41 @@
                 "n": 32
             }
         },
-        {
-            "type": "sphere",
-            "comment": "Earth sphere",
-            "position": [140, 220, 400],
-            "radius": 50,
-            "rotationAxis": [0.6, 0.1, -0.2],
-            "angle": 120,
-            "material":
-            {
-                "comment": "image is relative to scene file here!",
-                "texture": "earthmap1k.png",
-                "ka": 0.2,
-                "kd": 0.8,
-                "ks": 0.0,
-                "n": 1
-            }
-        },
 		{
-			"type": "torus",
-			"comment": "Earth has rings now!",
-			"position": [140, 220, 400],
-			"major": 80,
-			"minor": 10,
-			"scale": [1, 0.3, 1],
-			"rotationAxis": [0.5, 1, 0.5],
-			"angle": 50,
-			"material":
-			{
-				"color": [0.5, 0.5, 0.5],
-				"ka": 0.2,
-				"kd": 0.5,
-				"ks": 0,
-				"n": 32
+			"type": "difference",
+			"a": {
+				"type": "sphere",
+				"comment": "Earth sphere",
+				"position": [140, 220, 400],
+				"radius": 50,
+				"rotationAxis": [0.6, 0.1, -0.2],
+				"angle": 120,
+				"material":
+				{
+					"comment": "image is relative to scene file here!",
+					"texture": "earthmap1k.png",
+					"ka": 0.2,
+					"kd": 0.8,
+					"ks": 0.0,
+					"n": 1
+				}
+			},
+			"b": {
+				"type": "torus",
+				"comment": "Earth has rings now!",
+				"position": [140, 220, 400],
+				"major": 50,
+				"minor": 10,
+				"rotationAxis": [0.5, 1, 0.5],
+				"angle": 0,
+				"material":
+				{
+					"color": [0.5, 0.5, 0.5],
+					"ka": 0.2,
+					"kd": 0.5,
+					"ks": 0,
+					"n": 32
+				}
 			}
 		},
         {

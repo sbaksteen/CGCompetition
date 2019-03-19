@@ -3,24 +3,29 @@
 #include <cmath>
 
 #include <iostream>
+#include <algorithm>
 
 #include "polyroots.h"
 
 using namespace std;
 
-Hit Torus::intersect(Ray const &ray) {
-	
-	double solution = minPos(intersects(ray));
-	if (solution < 0) {
-		return Hit::NO_HIT();
+
+std::vector<Interval> Torus::intervals(Ray const &ray) {
+	std::vector<Interval> is;
+	std::vector<double> ts = intersects(ray);
+	std::sort(ts.begin(), ts.end());
+	std::vector<Hit> hits;
+	for (int i = 0; i < ts.size(); i++) {
+		Vector point = ray.at(ts[i]);
+		double p2 = sqrt(point.x*point.x + point.z*point.z);
+		Point tubeMiddle = Point(point.x*maj/p2, 0, point.z * maj/p2);
+		Vector N = point - tubeMiddle;
+		hits.push_back(Hit(ts[i], N.normalized(), Point(0,0), &material));
 	}
-	
-	// calculate normal
-	Vector point = ray.at(solution);
-	double p2 = sqrt(point.x*point.x + point.z*point.z);
-	Point tubeMiddle = Point(point.x*maj/p2, 0, point.z * maj/p2);
-	Vector N = point - tubeMiddle;
-	return Hit(solution, N.normalized());
+	for (int i = 0; i < hits.size(); i += 2) {
+		is.push_back(Interval(hits[i], hits[i+1]));
+	}
+	return is;
 }
 
 std::vector<double> Torus::intersects(Ray const &ray) {

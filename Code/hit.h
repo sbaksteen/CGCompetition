@@ -13,7 +13,7 @@ class Hit
         Point texPt;
         Material* mat;
 
-        Hit(double time, Vector const &normal, Point texPt = Point(0, 0, 0), Material* mat = nullptr)
+        Hit(double time = std::numeric_limits<double>::quiet_NaN(), Vector const &normal = Vector(), Point texPt = Point(0, 0, 0), Material* mat = nullptr)
         :
             t(time),
             N(normal),

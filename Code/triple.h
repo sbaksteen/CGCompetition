@@ -50,6 +50,7 @@ class Triple
         Triple operator*(Triple const &t) const;// memberwise multiplication
         Triple operator*(double f) const;       // multiply each member with a
                                                 // value
+        Triple operator/(Triple const &t) const;// memberwise division
         Triple operator/(double f) const;       // divide each member by a value
 
 // --- Compound operators ------------------------------------------------------

@@ -7,12 +7,13 @@
 #include "hit.h"
 #include "ray.h"
 #include "triple.h"
+#include "matrix.h"
 
 #include <memory>
 class Object;
 typedef std::shared_ptr<Object> ObjectPtr;
 
-class Object
+class Object : public std::enable_shared_from_this<Object>
 {
     public:
         Material material;

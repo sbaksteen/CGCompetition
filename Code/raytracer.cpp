@@ -16,11 +16,17 @@
 #include "shapes/triangle.h"
 #include "shapes/plane.h"
 #include "shapes/quad.h"
+#include "shapes/box.h"
 #include "shapes/mesh.h"
 #include "shapes/torus.h"
 #include "shapes/cylinder.h"
 #include "shapes/cone.h"
 #include "shapes/transformedObject.h"
+#include "shapes/closedObject.h"
+#include "shapes/closedTransformedObject.h"
+#include "shapes/union.h"
+#include "shapes/intersection.h"
+#include "shapes/difference.h"
 
 // =============================================================================
 // -- End of shape includes ----------------------------------------------------
@@ -36,7 +42,85 @@
 using namespace std;        // no std:: required
 using json = nlohmann::json;
 
-bool Raytracer::parseObjectNode(json const &node)
+
+Matrix44 constructMatrix(json const &node) {
+	Matrix44 transformMat;
+	if (node.count("position")) {
+		Vector translate(node["position"]);
+		transformMat.translate(translate);
+	}
+	if (node.count("rotationAxis")) {
+		if (!node.count("angle")) {
+			cerr << "Angle not present for rotation.\n";
+		} else {
+			Vector axis(node["rotationAxis"]);
+			double angle = node["angle"];
+			angle *= M_PI/180;
+			transformMat.rotate(axis, angle);
+		}
+	}
+	if (node.count("uniformScale")) {
+		double scaleFactor = node["uniformScale"];
+		Vector scale = Vector(scaleFactor, scaleFactor, scaleFactor);
+		transformMat.scale(scale);
+	}
+	if (node.count("scale")) {
+		Vector scale(node["scale"]);
+		transformMat.scale(scale);
+	}
+	return transformMat;
+}
+
+ClosedPtr Raytracer::parseClosedObject(json const &node) {
+	ClosedPtr obj = nullptr;
+
+	if (node["type"] == "sphere")
+    {
+        double radius = node["radius"];
+        obj = ClosedPtr(new Sphere(radius));
+    } 
+	else if (node["type"] == "torus") {
+		double major = node["major"];
+		double minor = node["minor"];
+		obj = ClosedPtr(new Torus(major, minor));
+	} else if (node["type"] == "box") {
+		Point vmin(node["vmin"]);
+		Point vmax(node["vmax"]);
+		obj = ClosedPtr(new Box(vmin, vmax));
+	} else if (node["type"] == "union") {
+		ClosedPtr o1 = parseClosedObject(node["a"]);
+		ClosedPtr o2 = parseClosedObject(node["b"]);
+		obj = ClosedPtr(new Union(o1, o2));
+	} else if (node["type"] == "intersection") {
+		ClosedPtr o1 = parseClosedObject(node["a"]);
+		ClosedPtr o2 = parseClosedObject(node["b"]);
+		obj = ClosedPtr(new Intersection(o1, o2));
+	} else if (node["type"] == "difference") {
+		ClosedPtr o1 = parseClosedObject(node["a"]);
+		ClosedPtr o2 = parseClosedObject(node["b"]);
+		obj = ClosedPtr(new Difference(o1, o2));
+	}
+	else 
+    {
+        cerr << "Unknown object type: " << node["type"] << ".\n";
+    }
+	
+    if (!obj)
+		return obj;
+
+    // Parse material
+	if (node.count("material"))
+    	obj->material = parseMaterialNode(node["material"]);
+	
+	
+	// Matrix transformation: scale, rotation, and translation.
+	Matrix44 transformMat = constructMatrix(node);
+
+	obj = ClosedPtr(new ClosedTransformedObject(obj, transformMat));
+	return obj;
+}
+
+ObjectPtr Raytracer::parseObjectNode(json const &node)
 {
     ObjectPtr obj = nullptr;
 
@@ -82,7 +166,11 @@ bool Raytracer::parseObjectNode(json const &node)
 		// all points must be on the same plane, otherwise a "broken" 
 		// quad will be drawn
 		obj = ObjectPtr(new Quad(a, b, c, d));
-	}  
+	}  else if (node["type"] == "box") {
+		Point vmin(node["vmin"]);
+		Point vmax(node["vmax"]);
+		obj = ObjectPtr(new Box(vmin, vmax));
+	}
 	else if (node["type"] == "plane")
 	{
 		Vector N(node["normal"]);
@@ -102,6 +190,18 @@ bool Raytracer::parseObjectNode(json const &node)
 		vector<Vertex> unitizedVerts = mesh->unitize(verts);
 		vector<Vertex> scaledVerts = mesh->scale(200, unitizedVerts);
 		obj = ObjectPtr(new Mesh(scaledVerts, s));
+	} else if (node["type"] == "union") {
+		ClosedPtr o1 = parseClosedObject(node["a"]);
+		ClosedPtr o2 = parseClosedObject(node["b"]);
+		obj = ObjectPtr(new Union(o1, o2));
+	} else if (node["type"] == "intersection") {
+		ClosedPtr o1 = parseClosedObject(node["a"]);
+		ClosedPtr o2 = parseClosedObject(node["b"]);
+		obj = ObjectPtr(new Intersection(o1, o2));
+	} else if (node["type"] == "difference") {
+		ClosedPtr o1 = parseClosedObject(node["a"]);
+		ClosedPtr o2 = parseClosedObject(node["b"]);
+		obj = ObjectPtr(new Difference(o1, o2));
 	}
 	else 
     {
@@ -109,55 +209,24 @@ bool Raytracer::parseObjectNode(json const &node)
     }
 	
     if (!obj)
-		return false;
+		return obj;
 
     // Parse material
-    obj->material = parseMaterialNode(node["material"]);
+	if (node.count("material"))
+    	obj->material = parseMaterialNode(node["material"]);
 	
 	
 	// Matrix transformation: scale, rotation, and translation.
-	bool transform = false;
-	Matrix44 transformMat = Matrix44();
+	Matrix44 transformMat = constructMatrix(node);
 
-	if (node.count("position")) {
-		transform = true;
-		Vector translate(node["position"]);
-		transformMat.translate(translate);
-	}
-	if (node.count("rotationAxis")) {
-		if (!node.count("angle")) {
-			cerr << "Angle not present for rotation.\n";
-		} else {
-			transform = true;
-			Vector axis(node["rotationAxis"]);
-			double angle = node["angle"];
-			angle *= M_PI/180;
-			transformMat.rotate(axis, angle);
-		}
-	}
-	if (node.count("uniformScale")) {
-		transform = true;
-		double scaleFactor = node["uniformScale"];
-		Vector scale = Vector(scaleFactor, scaleFactor, scaleFactor);
-		transformMat.scale(scale);
-	}
-	if (node.count("scale")) {
-		transform = true;
-		Vector scale(node["scale"]);
-		transformMat.scale(scale);
-	}
-	
-	if (transform) {
-		obj = ObjectPtr(new TransformedObject(obj, transformMat));
-	}
+	obj = ObjectPtr(new TransformedObject(obj, transformMat));
 
 // =============================================================================
 // -- End of object reading ----------------------------------------------------
 // =============================================================================
 
 	// add object to the scene
-    scene.addObject(obj);
-    return true;
+	return obj;
 }
 
 Light Raytracer::parseLightNode(json const &node) const
@@ -236,9 +305,13 @@ try
         scene.addLight(parseLightNode(lightNode));
 
     unsigned objCount = 0;
-    for (auto const &objectNode : jsonscene["Objects"])
-        if (parseObjectNode(objectNode))
+    for (auto const &objectNode : jsonscene["Objects"]) {
+		ObjectPtr obj = parseObjectNode(objectNode);
+        if (obj) {
             ++objCount;
+			scene.addObject(obj);
+		}
+	}
 
     cout << "Parsed " << objCount << " objects.\n";
 

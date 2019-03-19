@@ -1,6 +1,6 @@
 {
     "Eye": [200, 200, 1000],
-    "Cel": 2,
+    "Cel": 0,
     "Shadows": true,
     "SuperSamplingFactor": 1,
     "Lights": [
@@ -35,6 +35,7 @@
             "material":
             {
                 "texture": "cat_diff.png",
+				"normals": "cat_norm.png",
                 "ka": 0.1,
                 "kd": 0.7,
                 "ks": 0.0,

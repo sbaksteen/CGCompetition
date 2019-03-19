@@ -2,6 +2,8 @@
 #define RAYTRACER_H_
 
 #include "scene.h"
+#include "object.h"
+#include "shapes/closedObject.h"
 
 #include <string>
 
@@ -22,7 +24,8 @@ class Raytracer
 
     private:
 
-        bool parseObjectNode(nlohmann::json const &node);
+        ClosedPtr parseClosedObject(nlohmann::json const &node);
+        ObjectPtr parseObjectNode(nlohmann::json const &node);
 
         Light parseLightNode(nlohmann::json const &node) const;
         Material parseMaterialNode(nlohmann::json const &node) const;
