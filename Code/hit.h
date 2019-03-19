@@ -2,6 +2,7 @@
 #define HIT_H_
 
 #include "triple.h"
+#include "material.h"
 #include <limits>
 
 class Hit
@@ -10,18 +11,14 @@ class Hit
         double t;   // distance of hit
         Vector N;   // Normal at hit
         Point texPt;
+        Material* mat;
 
-        Hit(double time, Vector const &normal, Point texPt)
+        Hit(double time, Vector const &normal, Point texPt = Point(0, 0, 0), Material* mat = nullptr)
         :
             t(time),
             N(normal),
-            texPt(texPt)
-        {}
-
-        Hit(double time, Vector const &normal)
-        :
-            t(time),
-            N(normal)
+            texPt(texPt),
+            mat(mat)
         {}
 
         static Hit const NO_HIT()

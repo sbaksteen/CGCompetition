@@ -34,7 +34,7 @@
 			"angle": -60,
             "material":
             {
-                "color": [1, 0.6, 0],
+                "texture": "cat_diff.png",
                 "ka": 0.1,
                 "kd": 0.7,
                 "ks": 0.0,

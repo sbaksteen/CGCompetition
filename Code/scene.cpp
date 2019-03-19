@@ -42,6 +42,9 @@ Color Scene::trace(Ray const &ray, int depth)
     if (!obj) return Color(0.0, 0.0, 0.0);
 
     Material material = obj->material;          //the hit objects material
+    if (min_hit.mat) {
+        material = *min_hit.mat;
+    }
     Point hit = ray.at(min_hit.t);                 //the hit point
     Vector N = min_hit.N;                          //the normal at hit point
     Vector V = -ray.D;                             //the view vector

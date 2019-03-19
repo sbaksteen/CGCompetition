@@ -9,6 +9,21 @@
 using namespace std;
 
 Hit Torus::intersect(Ray const &ray) {
+	
+	double solution = minPos(intersects(ray));
+	if (solution < 0) {
+		return Hit::NO_HIT();
+	}
+	
+	// calculate normal
+	Vector point = ray.at(solution);
+	double p2 = sqrt(point.x*point.x + point.z*point.z);
+	Point tubeMiddle = Point(point.x*maj/p2, 0, point.z * maj/p2);
+	Vector N = point - tubeMiddle;
+	return Hit(solution, N.normalized());
+}
+
+std::vector<double> Torus::intersects(Ray const &ray) {
 	double dir2 = (ray.D).dot(ray.D);
 	double o2 = (ray.O).dot(ray.O);
 	double diro = (ray.D).dot(ray.O);
@@ -24,18 +39,10 @@ Hit Torus::intersect(Ray const &ray) {
 	double c = 2*dir2*o2adj + 4*diro*diro + 4*maj2*dy*dy;
 	double d = 4*o2adj*diro + 8*maj2*oy*dy;
 	double e = o2adj*o2adj - 4*maj2*(min2 - oy*oy);
-	
-	double solution = minPos(solveQuartic(a, b, c, d, e));
-	if (solution < 0) {
-		return Hit::NO_HIT();
-	}
-	
-	// calculate normal
-	Vector point = ray.at(solution);
-	double p2 = sqrt(point.x*point.x + point.z*point.z);
-	Point tubeMiddle = Point(point.x*maj/p2, 0, point.z * maj/p2);
-	Vector N = point - tubeMiddle;
-	return Hit(solution, N.normalized());
+
+	std::vector<double> r = solveQuartic(a, b, c, d, e);
+	std::sort(r.begin(), r.end());
+	return r;
 }
 
 Torus::Torus(double major, double minor)

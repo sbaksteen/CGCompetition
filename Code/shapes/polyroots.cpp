@@ -11,9 +11,6 @@ vector<double> solveQuadratic(double a, double b, double c) {
 		return result;
 	} 
 	result.push_back((-b - sqrt(discrim)) / (2*a));
-	if (discrim == 0) {
-		return result;
-	}
 	result.push_back((-b + sqrt(discrim)) / (2*a));
 	return result;
 }

@@ -27,14 +27,8 @@ Hit Sphere::intersect(Ray const &ray)
     ****************************************************/
 
     // place holder for actual intersection calculation
-    
-    double a = (ray.D).dot(ray.D);
-    double b = 2*(ray.D).dot(ray.O);
-    double c = (ray.O).dot(ray.O) - r*r;
-    
-    //double t = 0;
 
-	double solution = minPos(solveQuadratic(a, b, c));
+	double solution = minPos(intersects(ray));
 	if (solution < 0) {
 		return Hit::NO_HIT();
 	}
@@ -54,6 +48,13 @@ Hit Sphere::intersect(Ray const &ray)
 
 	return Hit(solution,N.normalized(), tex);
 
+}
+
+std::vector<double> Sphere::intersects(Ray const &ray) {
+	double a = (ray.D).dot(ray.D);
+    double b = 2*(ray.D).dot(ray.O);
+    double c = (ray.O).dot(ray.O) - r*r;
+	return solveQuadratic(a, b, c);
 }
 
 Point Sphere::textureCoordAt(Point const &p) {

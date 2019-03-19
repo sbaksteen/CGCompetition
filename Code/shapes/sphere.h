@@ -2,13 +2,17 @@
 #define SPHERE_H_
 
 #include "../object.h"
+#include "closedObject.h"
+#include <vector>
 
-class Sphere: public Object
+class Sphere: public ClosedObject
 {
     public:
         Sphere(double radius);
 
         virtual Hit intersect(Ray const &ray);
+
+        virtual std::vector<double> intersects(Ray const &ray);
 		
         double const r;
 		
