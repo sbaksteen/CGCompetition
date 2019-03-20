@@ -43,6 +43,13 @@ Point Sphere::textureCoordAt(Point const &p) {
 	return Point(u, v, 0);
 }
 
+BBox Sphere::boundingBox() const {
+	return BBox(
+		Point(-r, -r, -r),
+		Point(r, r, r)
+	);
+}
+
 Sphere::Sphere(double radius)
 :
     r(radius)

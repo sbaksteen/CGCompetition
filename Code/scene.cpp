@@ -26,17 +26,9 @@ Color Scene::trace(Ray const &ray, int depth)
 		return Color(0, 0, 0);
 	}
     // Find hit object and distance
-    Hit min_hit(numeric_limits<double>::infinity(), Vector());
-    ObjectPtr obj = nullptr;
-    for (unsigned idx = 0; idx != objects.size(); ++idx)
-    {
-        Hit hit(objects[idx]->intersect(ray));
-        if (hit.t < min_hit.t)
-        {
-            min_hit = hit;
-            obj = objects[idx];
-        }
-    }
+    IResult r = tree->minhit(ray);
+    Hit min_hit = r.hit;
+    ObjectPtr obj = r.obj;
 
     // No hit? Return background color.
     if (!obj) return Color(0.0, 0.0, 0.0);
@@ -97,16 +89,12 @@ Color Scene::trace(Ray const &ray, int depth)
 		if (shadows) {
 			Ray shadowRay = Ray(hit + EPSILON * L, L);
 			double len = (light->position - hit).length();
-			bool h = false;
-			for (unsigned idx = 0; idx != objects.size(); ++idx) {
-				Hit hit(objects[idx]->intersect(shadowRay));
-				if (hit.t < len) {
-					h = true;
-				}
-			}
-			if (h) {
-				continue;
-			}
+            IResult r = tree->minhit(shadowRay);
+            Hit min_hit = r.hit;
+            ObjectPtr obj = r.obj;
+            if (min_hit.t < len) {
+                continue;
+            }
 		}
         double diff = fmax(0, L.dot(N));
         if (cel) {
@@ -132,6 +120,13 @@ void Scene::render(Image &img)
 {
     unsigned w = img.width();
     unsigned h = img.height();
+
+    vector<BBox> boxes;
+    for (unsigned i = 0; i < objects.size(); i++) {
+        boxes.push_back(objects[i]->boundingBox());
+    }
+
+    tree = new ObjTree(objects, boxes, 5);
     
     #pragma omp parallel for
     for (unsigned y = 0; y < h; ++y)

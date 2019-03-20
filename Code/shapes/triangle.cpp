@@ -1,5 +1,4 @@
 #include "triangle.h"
-#include "mesh.h"
 
 #include <cmath>
 
@@ -60,6 +59,13 @@ Hit Triangle::intersect(Ray const &ray)
 Point Triangle::textureCoordAt(float beta, float gamma) {
 	return Point(va.u + beta*(vb.u-va.u) + gamma*(vc.u-va.u),
 				 1 - (va.v + beta*(vb.v-va.v) + gamma*(vc.v-va.v)));
+}
+
+BBox Triangle::boundingBox() const {
+	return BBox(
+		Point(fmin(va.x, fmin(vb.x, vc.x)), fmin(va.y, fmin(vb.y, vc.y)), fmin(va.z, fmin(vb.z, vc.z))),
+		Point(fmax(va.x, fmax(vb.x, vc.x)), fmax(va.y, fmax(vb.y, vc.y)), fmax(va.z, fmax(vb.z, vc.z)))
+	);
 }
 
 Triangle::Triangle(Vertex a, Vertex b, Vertex c, ShadingType s)

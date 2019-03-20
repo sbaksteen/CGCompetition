@@ -16,6 +16,7 @@ class Triangle: public Object
 
         virtual Hit intersect(Ray const &ray);
 
+        virtual BBox boundingBox() const;
 
         Vertex va;
         Vertex vb;

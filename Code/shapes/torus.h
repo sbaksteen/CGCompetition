@@ -13,6 +13,8 @@ class Torus: public ClosedObject
 
         virtual std::vector<Interval> intervals (Ray const &ray);
         
+        virtual BBox boundingBox() const;
+        
         std::vector<double> intersects(Ray const &ray);
 
         double const maj; // major radius

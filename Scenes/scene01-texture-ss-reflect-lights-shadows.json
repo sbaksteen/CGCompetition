@@ -1,8 +1,8 @@
 {
     "Eye": [200, 200, 1000],
     "Shadows": true,
-	"Cel": 0,
-    "SuperSamplingFactor": 4,
+	"Cel": 2,
+    "SuperSamplingFactor": 1,
     "Lights": [
         {
             "position": [600, 600, 1500],
@@ -24,42 +24,6 @@
                 "n": 64
             }
         },
-		{
-			"type": "intersection",
-			"a": {
-				"type": "box",
-				"vmin": [-30, -30, -30],
-				"vmax": [30, 30, 30],
-				"rotationAxis": [0, 1, 0],
-				"angle": 45,
-				"material": {
-					"texture": "wood.png",
-					"normals": "woodn.png",
-					"ka": 0.2,
-					"kd": 0.7,
-					"ks": 0,
-					"n": 8
-				}
-			},
-			"b": {
-				"type": "sphere",
-				"comment": "Green sphere",
-				"radius": 40,
-				"rotationAxis": [1, 0, 0],
-				"angle": 90,
-				"material":
-				{
-					"texture": "wood.png",
-					"normals": "woodn.png",
-					"ka": 0.2,
-					"kd": 0.7,
-					"ks": 0,
-					"n": 8
-				}
-			},
-			"position": [210, 270, 300],
-			"uniformScale": 5
-		},
         {
             "type": "sphere",
             "comment": "Red sphere",

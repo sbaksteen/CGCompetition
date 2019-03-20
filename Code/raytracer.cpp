@@ -17,7 +17,6 @@
 #include "shapes/plane.h"
 #include "shapes/quad.h"
 #include "shapes/box.h"
-#include "shapes/mesh.h"
 #include "shapes/torus.h"
 #include "shapes/cylinder.h"
 #include "shapes/cone.h"
@@ -120,7 +119,7 @@ ClosedPtr Raytracer::parseClosedObject(json const &node) {
 	return obj;
 }
 
-ObjectPtr Raytracer::parseObjectNode(json const &node)
+bool Raytracer::parseObjectNode(json const &node)
 {
     ObjectPtr obj = nullptr;
 
@@ -189,7 +188,28 @@ ObjectPtr Raytracer::parseObjectNode(json const &node)
 		vector<Vertex> verts = mesh->vertex_data();
 		vector<Vertex> unitizedVerts = mesh->unitize(verts);
 		vector<Vertex> scaledVerts = mesh->scale(200, unitizedVerts);
-		obj = ObjectPtr(new Mesh(scaledVerts, s));
+		Matrix44 transformMat = constructMatrix(node);
+		Matrix44 invTran = transformMat.inverse().transposed();
+		Material mat = parseMaterialNode(node["material"]);
+		for (unsigned i = 0; i < scaledVerts.size(); i++) {
+			Point p = Point(scaledVerts[i].x, scaledVerts[i].y, scaledVerts[i].z);
+			p = transformMat * p;
+			scaledVerts[i].x = p.x;
+			scaledVerts[i].y = p.y;
+			scaledVerts[i].z = p.z;
+			Vector n = Point(scaledVerts[i].nx, scaledVerts[i].ny, scaledVerts[i].nz);
+			n = invTran * n;
+			scaledVerts[i].nx = n.x;
+			scaledVerts[i].ny = n.y;
+			scaledVerts[i].nz = n.z;
+
+		}
+		for (int i = 0; i < scaledVerts.size(); i += 3) {
+			obj = ObjectPtr(new Triangle(scaledVerts[i], scaledVerts[i+1], scaledVerts[i+2], s));
+			obj->material = mat;
+			scene.addObject(obj);
+		}
+		return true;
 	} else if (node["type"] == "union") {
 		ClosedPtr o1 = parseClosedObject(node["a"]);
 		ClosedPtr o2 = parseClosedObject(node["b"]);
@@ -209,7 +229,7 @@ ObjectPtr Raytracer::parseObjectNode(json const &node)
     }
 	
     if (!obj)
-		return obj;
+		return false;
 
     // Parse material
 	if (node.count("material"))
@@ -226,7 +246,8 @@ ObjectPtr Raytracer::parseObjectNode(json const &node)
 // =============================================================================
 
 	// add object to the scene
-	return obj;
+	scene.addObject(obj);
+	return true;
 }
 
 Light Raytracer::parseLightNode(json const &node) const
@@ -306,10 +327,8 @@ try
 
     unsigned objCount = 0;
     for (auto const &objectNode : jsonscene["Objects"]) {
-		ObjectPtr obj = parseObjectNode(objectNode);
-        if (obj) {
+        if (parseObjectNode(objectNode)) {
             ++objCount;
-			scene.addObject(obj);
 		}
 	}
 

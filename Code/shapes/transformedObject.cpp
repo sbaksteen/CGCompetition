@@ -24,3 +24,13 @@ void TransformedObject::transform(Matrix44 const &m) {
 	transformMat *= m;
 	transformInv = transformMat.inverse();
 }
+
+BBox TransformedObject::boundingBox() const {
+	BBox b = obj->boundingBox();
+	if (isnan(b.vmin.x)) return BBox::NO_BOX();
+	Point tmin = transformMat * b.vmin;
+	Point tmax = transformMat * b.vmax;
+	Point vmin = Point(fmin(tmin.x, tmax.x), fmin(tmin.y, tmax.y), fmin(tmin.z, tmax.z));
+	Point vmax = Point(fmax(tmin.x, tmax.x), fmax(tmin.y, tmax.y), fmax(tmin.z, tmax.z));
+	return BBox(vmin, vmax);
+}

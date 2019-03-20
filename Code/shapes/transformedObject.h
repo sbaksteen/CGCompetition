@@ -10,8 +10,10 @@ class TransformedObject: public Object
         TransformedObject(ObjectPtr const &obj, Matrix44 transformMatrix);
 
         virtual Hit intersect(Ray const &ray);
+
+        virtual BBox boundingBox() const;
 		
-		void transform(Matrix44 const &m);
+		    void transform(Matrix44 const &m);
 
     private:
 		ObjectPtr obj;

@@ -2,7 +2,7 @@
     "Eye": [200, 200, 1000],
     "Cel": 0,
     "Shadows": true,
-    "SuperSamplingFactor": 1,
+    "SuperSamplingFactor": 9,
     "Lights": [
         {
             "position": [0, 500, 800],

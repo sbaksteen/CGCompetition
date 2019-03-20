@@ -50,6 +50,14 @@ std::vector<double> Torus::intersects(Ray const &ray) {
 	return r;
 }
 
+BBox Torus::boundingBox() const {
+	double x = maj+min;
+	return BBox(
+		Point(-x, -min, -x),
+		Point(x, min, x)
+	);
+}
+
 Torus::Torus(double major, double minor)
 :
     maj(major),

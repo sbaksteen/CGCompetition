@@ -24,3 +24,13 @@ vector<Interval> Union::intervals(Ray const &ray) {
     }
     return result;
 }
+
+BBox Union::boundingBox() const {
+    BBox b1 = o1->boundingBox(),
+         b2 = o2->boundingBox();
+
+    return BBox(
+        Point(fmin(b1.vmin.x, b2.vmin.x), fmin(b1.vmin.y, b2.vmin.y), fmin(b1.vmin.z, b2.vmin.z)),
+        Point(fmax(b1.vmax.x, b2.vmax.x), fmax(b1.vmax.y, b2.vmax.y), fmax(b1.vmax.z, b2.vmax.z))
+    );
+}

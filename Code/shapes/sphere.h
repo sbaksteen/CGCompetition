@@ -11,6 +11,8 @@ class Sphere: public ClosedObject
         Sphere(double radius);
 
         virtual std::vector<Interval> intervals (Ray const &ray);
+        
+        virtual BBox boundingBox() const;
 
         std::vector<double> intersects(Ray const &ray);
 		

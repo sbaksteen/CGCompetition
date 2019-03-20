@@ -77,3 +77,7 @@ vector<Interval> Box::intervals(Ray const &ray) {
     v.push_back(Interval(Hit(low, N1, tx1, &material), Hit(hi, N2, tx2, &material)));
     return v;
 }
+
+BBox Box::boundingBox() const {
+    return BBox(vmin, vmax);
+}

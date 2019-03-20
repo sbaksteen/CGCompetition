@@ -36,6 +36,13 @@ Hit Cylinder::intersect(Ray const &ray)
     return Hit(solution, N.normalized());
 }
 
+BBox Cylinder::boundingBox() const {
+	return BBox(
+		Point(-r, 0, -r),
+		Point(r, h, r)
+	);
+}
+
 Cylinder::Cylinder(double radius, double height)
 : r(radius),
   h(height)

@@ -26,3 +26,7 @@ vector<Interval> Difference::intervals(Ray const &ray) {
     }
     return result;
 }
+
+BBox Difference::boundingBox() const {
+    return o1->boundingBox();
+}

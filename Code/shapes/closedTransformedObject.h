@@ -12,6 +12,8 @@ class ClosedTransformedObject : public ClosedObject {
             material = o->material;
             transformInv = transformMat.inverse();
         }
+        
+        virtual BBox boundingBox() const;
 
         ClosedPtr o;
         Matrix44 transformMat;

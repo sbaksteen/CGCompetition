@@ -25,7 +25,7 @@ class Raytracer
     private:
 
         ClosedPtr parseClosedObject(nlohmann::json const &node);
-        ObjectPtr parseObjectNode(nlohmann::json const &node);
+        bool parseObjectNode(nlohmann::json const &node);
 
         Light parseLightNode(nlohmann::json const &node) const;
         Material parseMaterialNode(nlohmann::json const &node) const;

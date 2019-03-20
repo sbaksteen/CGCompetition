@@ -4,6 +4,7 @@
 #include "light.h"
 #include "object.h"
 #include "triple.h"
+#include "objtree.h"
 
 #include <vector>
 
@@ -16,6 +17,7 @@ class Scene
     std::vector<ObjectPtr> objects;
     std::vector<LightPtr> lights;   // no ptr needed, but kept for consistency
     Point eye;
+    ObjTree* tree;
 	bool shadows = false;
     int cel = 0;
 	int maxDepth = 0;

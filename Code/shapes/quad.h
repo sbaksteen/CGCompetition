@@ -12,6 +12,8 @@ class Quad: public Object
         Quad(Vertex a, Vertex b, Vertex c, Vertex d);
 
         virtual Hit intersect(Ray const &ray);
+
+        virtual BBox boundingBox() const;
         
 		Triangle* t1;
 		Triangle* t2;

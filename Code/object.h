@@ -8,6 +8,7 @@
 #include "ray.h"
 #include "triple.h"
 #include "matrix.h"
+#include "boundingBox.h"
 
 #include <memory>
 class Object;
@@ -22,6 +23,10 @@ class Object : public std::enable_shared_from_this<Object>
 
         virtual Hit intersect(Ray const &ray) = 0;  // must be implemented
                                                     // in derived class
+
+        virtual BBox boundingBox() const {
+            return BBox::NO_BOX();
+        }
 };
 
 #endif

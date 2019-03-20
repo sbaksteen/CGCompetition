@@ -8,6 +8,8 @@
 class Box : public ClosedObject {
     public:
         virtual std::vector<Interval> intervals(Ray const &ray);
+        
+        virtual BBox boundingBox() const;
 
         Box(Point vmin, Point vmax) : vmin(vmin), vmax(vmax) {}
         Point vmin, vmax;

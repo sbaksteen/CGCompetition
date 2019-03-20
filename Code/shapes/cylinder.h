@@ -9,6 +9,8 @@ class Cylinder: public Object
         Cylinder(double radius, double height);
 
         virtual Hit intersect(Ray const &ray);
+        
+        virtual BBox boundingBox() const;
 
 		double r;
 		double h;
