@@ -21,6 +21,8 @@ class Material
         double kd;          // diffuse intensity
         double ks;          // specular intensity
         double n;           // exponent for specular highlight size
+		bool transparent = false;
+		double eta = 1;
 
         Material() = default;
 

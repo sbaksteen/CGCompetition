@@ -49,10 +49,6 @@ Hit Triangle::intersect(Ray const &ray)
 
 	Point tex = textureCoordAt(beta, gamma);
 	
-	if (N.dot(ray.D) > 0){
-		return Hit(solution, -N, tex);
-	}
-	
     return Hit(solution, N, tex);
 }
 

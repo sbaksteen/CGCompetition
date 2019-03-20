@@ -11,58 +11,64 @@ vector<Interval> Box::intervals(Ray const &ray) {
     Point tx2;
     Vector tmin = (vmin - ray.O) / ray.D;
     Vector tmax = (vmax - ray.O) / ray.D;
+    double xsgn = 1,
+           ysgn = 1,
+           zsgn = 1;
     
     if (tmin.x > tmax.x) {
         double temp = tmin.x;
         tmin.x = tmax.x;
         tmax.x = temp;
+        xsgn = -1;
     }
     if (tmin.y > tmax.y) {
         double temp = tmin.y;
         tmin.y = tmax.y;
         tmax.y = temp;
+        ysgn = -1;
     }
     if (tmin.z > tmax.z) {
         double temp = tmin.z;
         tmin.z = tmax.z;
         tmax.z = temp;
+        zsgn = -1;
     }
 
     double low, hi;
 
     if (tmin.x > tmin.y && tmin.x > tmin.z) {
-        N1 = Vector(1, 0, 0);
+        N1 = Vector(-xsgn, 0, 0);
         low = tmin.x;
         Point p = ray.at(low);
         tx1 = Point((p.z - vmin.z) / (vmax.z - vmin.z), (p.y - vmin.y) / (vmax.y - vmin.y));
     }
     else if (tmin.y > tmin.z) {
-        N1 = Vector(0, 1, 0);
+        N1 = Vector(0, -ysgn, 0);
         low = tmin.y;
         Point p = ray.at(low);
         tx1 = Point((p.x - vmin.x) / (vmax.x - vmin.x), (p.z - vmin.z) / (vmax.z - vmin.z));
     }
     else {
-        N1 = Vector(0, 0, 1);
+        N1 = Vector(0, 0, -zsgn);
         low = tmin.z;
         Point p = ray.at(low);
         tx1 = Point((p.x - vmin.x) / (vmax.x - vmin.x), (p.y - vmin.y) / (vmax.y - vmin.y));
     }
 
     if (tmax.x < tmax.y && tmax.x < tmax.z) {
-        N2 = Vector(1, 0, 0);
+        N2 = Vector(xsgn, 0, 0);
         hi = tmax.x;
         Point p = ray.at(hi);
         tx2 = Point((p.z - vmin.z) / (vmax.z - vmin.z), p.y - vmin.y / (vmax.y - vmin.y));
     }
     else if (tmax.y < tmax.z) {
-        N2 = Vector(0, 1, 0);
+        N2 = Vector(0, ysgn, 0);
         hi = tmax.y;
         Point p = ray.at(hi);
         tx2 = Point((p.x - vmin.x) / (vmax.x - vmin.x), (p.z - vmin.z) / (vmax.z - vmin.z));
     }
     else {
-        N2 = Vector(0, 0, 1);
+        N2 = Vector(0, 0, zsgn);
         hi = tmax.z;
         Point p = ray.at(hi);
         tx2 = Point((p.x - vmin.x) / (vmax.x - vmin.x), (p.y - vmin.y) / (vmax.y - vmin.y));

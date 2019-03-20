@@ -279,6 +279,12 @@ Material Raytracer::parseMaterialNode(json const &node) const
 		Image* image = new Image(filename);
 		m.setNorm(image);
 	}
+	if (node.count("transparent")) {
+		bool b(node["transparent"]);
+		m.transparent = b;
+		double d(node["eta"]);
+		m.eta = d;
+	}
 	return m;
 }
 

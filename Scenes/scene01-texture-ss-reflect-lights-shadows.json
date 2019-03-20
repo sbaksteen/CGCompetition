@@ -1,8 +1,8 @@
 {
     "Eye": [200, 200, 1000],
     "Shadows": true,
-	"Cel": 2,
-    "SuperSamplingFactor": 1,
+	"MaxRecursionDepth": 4,
+    "SuperSamplingFactor": 4,
     "Lights": [
         {
             "position": [600, 600, 1500],
@@ -27,7 +27,7 @@
         {
             "type": "sphere",
             "comment": "Red sphere",
-            "position": [290, 170, 150],
+            "position": [200, 170, 400],
             "radius": 50,
             "material":
             {
@@ -38,43 +38,26 @@
                 "n": 32
             }
         },
-		{
-			"type": "difference",
-			"a": {
-				"type": "sphere",
-				"comment": "Earth sphere",
-				"position": [140, 220, 400],
-				"radius": 50,
-				"rotationAxis": [0.6, 0.1, -0.2],
-				"angle": 120,
-				"material":
-				{
-					"comment": "image is relative to scene file here!",
-					"texture": "earthmap1k.png",
-					"ka": 0.2,
-					"kd": 0.8,
-					"ks": 0.0,
-					"n": 1
-				}
-			},
-			"b": {
-				"type": "torus",
-				"comment": "Earth has rings now!",
-				"position": [140, 220, 400],
-				"major": 50,
-				"minor": 10,
-				"rotationAxis": [0.5, 1, 0.5],
-				"angle": 0,
-				"material":
-				{
-					"color": [0.5, 0.5, 0.5],
-					"ka": 0.2,
-					"kd": 0.5,
-					"ks": 0,
-					"n": 32
-				}
-			}
-		},
+        {
+            "type": "mesh",
+            "comment": "Some object",
+            "filepath": "../Scenes/cat.obj",
+			"shading": "phong",
+			"position": [200, 210, 400],
+			"rotationAxis": [0, 1, 0],
+			"angle": -130,
+			"uniformScale": 0.5,
+            "material":
+            {
+				"color": [0.5, 0.5, 0.5],
+                "ka": 0.0,
+                "kd": 0.0,
+                "ks": 1,
+                "n": 32,
+				"transparent": true,
+				"eta": 1.52
+            }
+        },
         {
             "type": "sphere",
             "comment": "Orange sphere",

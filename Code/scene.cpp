@@ -39,7 +39,7 @@ Color Scene::trace(Ray const &ray, int depth)
     }
     Point hit = ray.at(min_hit.t);                 //the hit point
     Vector N = min_hit.N;                          //the normal at hit point
-    Vector V = -ray.D;                             //the view vector
+    Vector V = ray.D;                             //the view vector
 
     /****************************************************
     * This is where you should insert the color
@@ -77,8 +77,10 @@ Color Scene::trace(Ray const &ray, int depth)
         }
         N = tbn * M;
     }
-    if (N.dot(ray.D) > 0) {
+    bool out = false;
+    if (N.dot(V) > 0) {
         N = -N;
+        out = true;
     }
 	Color matC = material.colorAt(texCoord.x, texCoord.y);
     
@@ -101,14 +103,46 @@ Color Scene::trace(Ray const &ray, int depth)
             diff = ceil(diff*cel)/cel;
         }
 		color += diff * matC * light->color * material.kd; //Diffuse
-		color += pow(fmax(0, R.dot(V)), material.n) * light->color * material.ks; //Specular
+		color += pow(fmax(0, R.dot(-V)), material.n) * light->color * material.ks; //Specular
 	}
+
 	
-	// Reflection
 	if (material.ks > 0) {
-		Vector R = 2*(N.dot(V)*N) - V;
+        double kr = 1;
+        // Refraction
+        if (material.transparent) {
+            double eta1 = 1;
+            double eta2 = material.eta;
+            double eta = eta1/eta2;
+            if (out) {
+                double temp = eta1;
+                eta1 = eta2;
+                eta2 = temp;
+                eta = 1/eta;
+            }
+            double cosv = -(V.dot(N));
+            double sin2v = 1 - cosv*cosv;
+            
+            double sin2t = eta*eta*sin2v;
+            if (sin2t <= 1) {
+                double cost = sqrt(1 - sin2t);
+
+                Vector T = eta*V + (eta*cosv - cost)*N;
+
+                // compute Schlick approx. for Fresnel
+                double r0 = ((eta2 - 1)/(eta2 + 1));
+                r0 *= r0;
+                kr = r0 + (1 - r0) * pow(1 - (eta > 1 ? cosv : cost), 5);
+
+                Ray transmissionRay = Ray(hit + EPSILON * T, T);
+                color += trace(transmissionRay, depth + 1) * material.ks * (1 - kr);
+            }
+
+        }
+	    // Reflection
+		Vector R = V - 2*(V.dot(N)*N);
 		Ray reflectionRay = Ray(hit + EPSILON * R, R);
-		color += trace(reflectionRay, depth + 1) * material.ks;
+		color += trace(reflectionRay, depth + 1) * material.ks * kr;
 	}
 
     color += matC * material.ka;
