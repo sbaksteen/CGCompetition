@@ -154,6 +154,7 @@ void Scene::render(Image &img)
 {
     unsigned w = img.width();
     unsigned h = img.height();
+    camera->setDimensions(w, h);
 
     vector<BBox> boxes;
     for (unsigned i = 0; i < objects.size(); i++) {
@@ -170,8 +171,7 @@ void Scene::render(Image &img)
 			Color col = Color(0,0,0);
 			for (int sy = 0; sy*sy < sampleFactor; sy++) {
 				for (int sx = 0; sx*sx < sampleFactor; sx++) {
-					Point pixel(x + (sx+1)/(sqrt(sampleFactor)+1), h - 1 - y + (sy+1)/(sqrt(sampleFactor)+1), 0);
-					Ray ray(eye, (pixel - eye).normalized());
+				    Ray ray = camera->rayAt(x + (sx+1)/(sqrt(sampleFactor)+1), y + (sy+1)/(sqrt(sampleFactor)+1));
 					col += trace(ray);
 				}
 			}
@@ -194,11 +194,6 @@ void Scene::addLight(Light const &light)
     lights.push_back(LightPtr(new Light(light)));
 }
 
-void Scene::setEye(Triple const &position)
-{
-    eye = position;
-}
-
 void Scene::setShadows(bool s) {
 	shadows = s;
 }
@@ -219,4 +214,8 @@ unsigned Scene::getNumObject()
 unsigned Scene::getNumLights()
 {
     return lights.size();
+}
+
+void Scene::setCamera(Camera *camera) {
+    this->camera = camera;
 }

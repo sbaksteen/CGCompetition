@@ -1,0 +1,3 @@
+D:/Documents/CG/Competition/cmake-build-debug/CMakeFiles/ray.dir
+D:/Documents/CG/Competition/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Documents/CG/Competition/cmake-build-debug/CMakeFiles/rebuild_cache.dir

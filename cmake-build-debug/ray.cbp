@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="ray"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Documents/CG/Competition/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ray">
+				<Option output="D:/Documents/CG/Competition/cmake-build-debug/ray.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Documents/CG/Competition/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include/c++/6.2.0"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include/c++/6.2.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include/c++/6.2.0/backward"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/include"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 ray"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ray/fast">
+				<Option output="D:/Documents/CG/Competition/cmake-build-debug/ray.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Documents/CG/Competition/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include/c++/6.2.0"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include/c++/6.2.0/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include/c++/6.2.0/backward"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/include"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../include"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/Haskell Platform/8.2.1/mingw/bin/../lib/gcc/x86_64-w64-mingw32/6.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 ray/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Documents/CG/Competition/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Documents/CG/Competition/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Documents/CG/Competition/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Documents/CG/Competition/Code/cameras/orthographicCamera.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/cameras/orthographicCamera.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/cameras/perspectiveCamera.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/cameras/perspectiveCamera.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/image.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/image.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/lode/lodepng.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/lode/lodepng.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/main.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/matrix.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/matrix.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/objloader.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/objloader.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/objtree.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/objtree.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/raytracer.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/raytracer.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/scene.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/scene.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/box.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/box.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/closedTransformedObject.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/closedTransformedObject.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/cone.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/cone.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/cylinder.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/cylinder.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/difference.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/difference.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/example.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/example.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/intersection.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/intersection.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/interval.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/interval.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/plane.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/plane.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/polyroots.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/polyroots.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/quad.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/quad.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/sphere.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/sphere.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/torus.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/torus.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/transformedObject.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/transformedObject.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/triangle.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/triangle.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/union.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/shapes/union.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/triple.cpp">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/Code/triple.h">
+			<Option target="ray"/>
+		</Unit>
+		<Unit filename="D:/Documents/CG/Competition/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -5,6 +5,7 @@
 #include "object.h"
 #include "triple.h"
 #include "objtree.h"
+#include "camera.h"
 
 #include <vector>
 
@@ -16,7 +17,7 @@ class Scene
 {
     std::vector<ObjectPtr> objects;
     std::vector<LightPtr> lights;   // no ptr needed, but kept for consistency
-    Point eye;
+    Camera* camera;
     ObjTree* tree;
 	bool shadows = false;
     int cel = 0;
@@ -35,7 +36,7 @@ class Scene
 
         void addObject(ObjectPtr obj);
         void addLight(Light const &light);
-        void setEye(Triple const &position);
+        void setCamera(Camera* camera);
 		void setShadows(bool s);
         void setCel(int c) {
             cel = c;

@@ -29,11 +29,11 @@ ObjTree::ObjTree(vector<ObjectPtr> objs, vector<BBox> boxes, int recursion) {
     vector<ObjectPtr> lo, ro;
     vector<BBox> lb, rb;
     for (unsigned i = 0; i < objs.size(); i++) {
-        BBox b = boxes[i];
-        if (isnan(b.vmin.x)) {
+        BBox bi = boxes[i];
+        if (isnan(bi.vmin.x)) {
             this->objs.push_back(objs[i]);
             box = BBox::NO_BOX();
-        } else if (bl.vmax.x < b.vmin.x || bl.vmax.y < b.vmin.y || bl.vmax.z < b.vmin.z) {
+        } else if (bl.vmax.x < bi.vmin.x || bl.vmax.y < bi.vmin.y || bl.vmax.z < bi.vmin.z) {
             // doesn't overlap bl
             ro.push_back(objs[i]);
             rb.push_back(boxes[i]);

@@ -1,8 +1,14 @@
 {
-    "Eye": [200, 200, 1000],
+    "Camera": {
+        "type": "perspective",
+        "position": [600, 600, 1000],
+        "lookAt": [200, 200, 400],
+        "planeDistance": 1000
+    },
     "Shadows": true,
 	"MaxRecursionDepth": 4,
     "SuperSamplingFactor": 4,
+    "Cel": 0,
     "Lights": [
         {
             "position": [600, 600, 1500],
@@ -25,36 +31,22 @@
             }
         },
         {
-            "type": "sphere",
-            "comment": "Red sphere",
-            "position": [200, 170, 400],
-            "radius": 50,
-            "material":
-            {
-                "color": [1.0, 0.0, 0.0],
-                "ka": 0.2,
-                "kd": 0.7,
-                "ks": 0,
-                "n": 32
-            }
-        },
-        {
             "type": "mesh",
             "comment": "Some object",
-            "filepath": "../Scenes/cat.obj",
+            "filepath": "../Scenes/teapot.obj",
 			"shading": "phong",
-			"position": [200, 210, 400],
+			"position": [200, 200, 400],
 			"rotationAxis": [0, 1, 0],
-			"angle": -130,
+			"angle": 0,
 			"uniformScale": 0.5,
             "material":
             {
-				"color": [0.5, 0.5, 0.5],
+				"color": [0.1, 0.73, 0.61],
                 "ka": 0.0,
-                "kd": 0.0,
-                "ks": 1,
+                "kd": 0.7,
+                "ks": 0.0,
                 "n": 32,
-				"transparent": true,
+				"transparent": false,
 				"eta": 1.52
             }
         },

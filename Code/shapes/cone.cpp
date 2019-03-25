@@ -28,7 +28,7 @@ Hit Cone::intersect(Ray const &ray)
 			validSolutions.push_back(n);
 		}
 	}
-	if (validSolutions.size() == 0) {
+	if (validSolutions.empty()) {
 		return Hit::NO_HIT();
 	}
 	double solution = minPos(validSolutions);

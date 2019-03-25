@@ -32,6 +32,8 @@
 // =============================================================================
 
 #include "json/json.h"
+#include "cameras/perspectiveCamera.h"
+#include "cameras/orthographicCamera.h"
 
 #include <cmath>
 #include <exception>
@@ -119,6 +121,42 @@ ClosedPtr Raytracer::parseClosedObject(json const &node) {
 	return obj;
 }
 
+Camera *Raytracer::parseCameraNode(nlohmann::json const &node) const {
+    if (node["type"] == "perspective") {
+        Point pos(node["position"]);
+        Vector dir;
+        if (node.count("direction")) {
+            dir = Vector(node["direction"]);
+        } else {
+            Point lookAt(node["lookAt"]);
+            dir = lookAt - pos;
+        }
+        double dist(node["planeDistance"]);
+        double pixSize = 1;
+        if (node.count("pixSize")) {
+            pixSize = node["pixSize"];
+        }
+
+        return new PerspectiveCamera(pos, dir, dist, pixSize);
+    } else if (node["type"] == "orthographic") {
+        Point pos(node["position"]);
+        Vector dir;
+        if (node.count("direction")) {
+            dir = Vector(node["direction"]);
+        } else {
+            Point lookAt(node["lookAt"]);
+            dir = lookAt - pos;
+        }
+        double pixSize = 1;
+        if (node.count("pixSize")) {
+            pixSize = node["pixSize"];
+        }
+        return new OrthographicCamera(pos, dir, pixSize);
+    } else {
+        return nullptr;
+    }
+}
+
 bool Raytracer::parseObjectNode(json const &node)
 {
     ObjectPtr obj = nullptr;
@@ -127,8 +165,7 @@ bool Raytracer::parseObjectNode(json const &node)
 // -- Determine type and parse object parametrers ------------------------------
 // =============================================================================
 
-    if (node["type"] == "sphere")
-    {
+    if (node["type"] == "sphere") {
         double radius = node["radius"];
         obj = ObjectPtr(new Sphere(radius));
     } 
@@ -146,15 +183,13 @@ bool Raytracer::parseObjectNode(json const &node)
 		double minor = node["minor"];
 		obj = ObjectPtr(new Torus(major, minor));
 	}
-    else if (node["type"] == "triangle")
-    {	
+    else if (node["type"] == "triangle") {
 		Vertex a = {node["verts"][0][0], node["verts"][0][1], node["verts"][0][2]};
 		Vertex b = {node["verts"][1][0], node["verts"][1][1], node["verts"][1][2]};
 		Vertex c = {node["verts"][2][0], node["verts"][2][1], node["verts"][2][2]};
 		obj = ObjectPtr(new Triangle(a, b, c, ShadingType::Flat));
 	}
-	else if (node["type"] == "quad")
-    {	
+	else if (node["type"] == "quad") {
 		Vertex a = {node["verts"][0][0], node["verts"][0][1], node["verts"][0][2]};
 		Vertex b = {node["verts"][1][0], node["verts"][1][1], node["verts"][1][2]};
 		Vertex c = {node["verts"][2][0], node["verts"][2][1], node["verts"][2][2]};
@@ -170,8 +205,7 @@ bool Raytracer::parseObjectNode(json const &node)
 		Point vmax(node["vmax"]);
 		obj = ObjectPtr(new Box(vmin, vmax));
 	}
-	else if (node["type"] == "plane")
-	{
+	else if (node["type"] == "plane") {
 		Vector N(node["normal"]);
 		obj = ObjectPtr(new Plane(N));
 	}
@@ -223,8 +257,7 @@ bool Raytracer::parseObjectNode(json const &node)
 		ClosedPtr o2 = parseClosedObject(node["b"]);
 		obj = ObjectPtr(new Difference(o1, o2));
 	}
-	else 
-    {
+	else {
         cerr << "Unknown object type: " << node["type"] << ".\n";
     }
 	
@@ -303,8 +336,20 @@ try
 // -- Read your scene data in this section -------------------------------------
 // =============================================================================
 
-    Point eye(jsonscene["Eye"]);
-    scene.setEye(eye);
+    if (jsonscene.count("Eye")) {
+    	Point eye(jsonscene["Eye"]);
+    	Camera* c = new PerspectiveCamera(eye, (Point(200, 200, 0)-eye).normalized(), (Point(200, 200, 0) - eye).length());
+    	scene.setCamera(c);
+    }
+
+    if (jsonscene.count("Camera")) {
+        scene.setCamera(parseCameraNode(jsonscene["Camera"]));
+    }
+
+    if (jsonscene.count("Resolution")) {
+        w = jsonscene["Resolution"][0];
+        h = jsonscene["Resolution"][1];
+    }
 
     // TODO: add your other configuration settings here
 
@@ -355,7 +400,7 @@ catch (exception const &ex)
 void Raytracer::renderToFile(string const &ofname)
 {
     // TODO: the size may be a settings in your file
-    Image img(400, 400);
+    Image img(w, h);
     cout << "Tracing...\n";
     scene.render(img);
     cout << "Writing image to " << ofname << "...\n";

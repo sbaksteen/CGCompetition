@@ -173,6 +173,8 @@ void OBJLoader::parseFile(string const &filename)
 
 void OBJLoader::parseLine(string const &line)
 {
+    if (line.empty())
+        return;
     if (line[0] == '#')
         return;                     // ignore comments
 
@@ -237,7 +239,11 @@ void OBJLoader::parseFace(StringList const &tokens)
         else
             vertex.d_tex = 0U;       // ignored
 
-        vertex.d_norm = stoul(elements.at(2)) - 1U;
+        if (elements.size() >= 3) {
+            vertex.d_norm = stoul(elements.at(2)) - 1U;
+        } else {
+            vertex.d_norm = stoul(elements.at(0)) - 1U;
+        }
 
         d_vertices.push_back(vertex);
     }

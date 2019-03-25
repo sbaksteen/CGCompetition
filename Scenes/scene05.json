@@ -1,5 +1,12 @@
 {
-    "Eye": [200, 200, 1000],
+    "Camera": {
+        "type": "perspective",
+        "position": [200, 300, 1000],
+        "lookAt": [200, 200, 400],
+        "planeDistance": 1000,
+        "pixSize": 0.21
+    },
+    "Resolution": [1920, 1080],
     "Cel": 0,
 	"MaxRecursionDepth": 4,
     "Shadows": true,
@@ -29,19 +36,19 @@
             "type": "mesh",
             "comment": "Some object",
             "filepath": "../Scenes/cat.obj",
-			"shading": "phong",
+            "shading": "phong",
 			"position": [200, 100, 400],
 			"rotationAxis": [0, 1, 0],
 			"angle": -60,
             "material":
             {
-                "texture": "cat_diff.png",
+                "color": [0.5, 0.5, 0.5],
                 "ka": 0.0,
                 "kd": 0.0,
-                "ks": 0.7,
+                "ks": 1,
                 "n": 32,
-				"transparent": true,
-				"eta": 1.33
+				"transparent": false,
+				"eta": 1.52
             }
         }
     ]

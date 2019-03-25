@@ -16,6 +16,7 @@ class Material;
 class Raytracer
 {
     Scene scene;
+    unsigned w = 400, h = 400;
 
     public:
 
@@ -29,6 +30,7 @@ class Raytracer
 
         Light parseLightNode(nlohmann::json const &node) const;
         Material parseMaterialNode(nlohmann::json const &node) const;
+        Camera* parseCameraNode(nlohmann::json const &node) const;
 		
 		std::string path;
 };
