@@ -9,7 +9,7 @@
   "Resolution": [1024, 1024],
   "Shadows": true,
   "MaxRecursionDepth": 5,
-  "SuperSamplingFactor": 1,
+  "SuperSamplingFactor": 9,
   "Cel": 0,
   "Lights": [
     {
