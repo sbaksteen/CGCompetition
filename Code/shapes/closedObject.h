@@ -3,7 +3,7 @@
 
 #include "../object.h"
 #include "../hit.h"
-#include "interval.h"
+#include "CSG/interval.h"
 #include <vector>
 #include <memory>
 

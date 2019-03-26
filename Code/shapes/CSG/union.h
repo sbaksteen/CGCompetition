@@ -1,8 +1,8 @@
 #ifndef UNION_H_
 #define UNION_H_
 
-#include "closedObject.h"
-#include "../object.h"
+#include "../closedObject.h"
+#include "../../object.h"
 
 class Union : public ClosedObject {
     public:

@@ -4,7 +4,7 @@
 #include "light.h"
 #include "object.h"
 #include "triple.h"
-#include "objtree.h"
+#include "spacePartitioning/objtree.h"
 #include "camera.h"
 
 #include <vector>

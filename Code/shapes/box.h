@@ -2,7 +2,7 @@
 #define BOX_H_
 
 #include "closedObject.h"
-#include "interval.h"
+#include "CSG/interval.h"
 #include <vector>
 
 class Box : public ClosedObject {

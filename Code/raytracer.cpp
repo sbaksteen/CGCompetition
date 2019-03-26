@@ -23,9 +23,9 @@
 #include "shapes/transformedObject.h"
 #include "shapes/closedObject.h"
 #include "shapes/closedTransformedObject.h"
-#include "shapes/union.h"
-#include "shapes/intersection.h"
-#include "shapes/difference.h"
+#include "shapes/CSG/union.h"
+#include "shapes/CSG/intersection.h"
+#include "shapes/CSG/difference.h"
 #include "shapes/infiniteCylinder.h"
 
 // =============================================================================

@@ -1,7 +1,7 @@
 #ifndef INTERVAL_H_
 #define INTERVAL_H_
 #include <vector>
-#include "../hit.h"
+#include "../../hit.h"
 using namespace std;
 
 class Interval {

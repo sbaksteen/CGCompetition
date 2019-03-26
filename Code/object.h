@@ -8,7 +8,7 @@
 #include "ray.h"
 #include "triple.h"
 #include "matrix.h"
-#include "boundingBox.h"
+#include "spacePartitioning/boundingBox.h"
 
 #include <memory>
 class Object;

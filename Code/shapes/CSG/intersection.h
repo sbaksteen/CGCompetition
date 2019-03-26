@@ -1,8 +1,8 @@
 #ifndef INTERSECTION_H_
 #define INTERSECTION_H_
 
-#include "closedObject.h"
-#include "../object.h"
+#include "../closedObject.h"
+#include "../../object.h"
 
 class Intersection : public ClosedObject {
     public:

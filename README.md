@@ -28,6 +28,12 @@ Normal mapping is implemented for more realistic-looking textures.
 
 ![Normal map example](Scenes/scene05.png)
 
+## Binary Space Partitioning
+
+An algorithm is employed to partition space into parts using objects' bounding boxes, first checking
+whether each ray hits some bounding box before checking whether it hits any given object.
+This greatly speeds up the program for large amounts of objects, especially polygon meshes.
+
 ## Camera settings
 
 Two types of camera are supported: orthographic and perspective. The camera's position and look direction, as well as

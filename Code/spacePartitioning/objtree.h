@@ -1,7 +1,7 @@
 #ifndef OBJTREE_H_
 #define OBJTREE_H_
 
-#include "object.h"
+#include "../object.h"
 #include <vector>
 
 struct IResult {
