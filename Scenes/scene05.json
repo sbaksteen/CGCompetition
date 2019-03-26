@@ -1,7 +1,7 @@
 {
     "Camera": {
         "type": "perspective",
-        "position": [200, 300, 1000],
+        "position": [200, 200, 1000],
         "lookAt": [200, 200, 400],
         "planeDistance": 1000,
         "pixSize": 0.21
@@ -43,10 +43,11 @@
             "uniformScale": 180,
             "material":
             {
-                "color": [0.5, 0.5, 0.5],
-                "ka": 0.0,
-                "kd": 0.0,
-                "ks": 1,
+                "texture": "cat_diff.png",
+                "normals": "cat_norm.png",
+                "ka": 0.1,
+                "kd": 0.7,
+                "ks": 0,
                 "n": 32,
 				"transparent": false,
 				"eta": 1.52

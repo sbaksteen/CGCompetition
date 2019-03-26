@@ -22,6 +22,12 @@ Refraction is modeled for transparent objects, resulting in realistic-looking re
 
 ![Refraction exmaple](Scenes/CSG-cup.png)
 
+## Normal mapping
+
+Normal mapping is implemented for more realistic-looking textures.
+
+![Normal map example](Scenes/scene05.png)
+
 ## Camera settings
 
 Two types of camera are supported: orthographic and perspective. The camera's position and look direction, as well as
