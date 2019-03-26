@@ -1,0 +1,171 @@
+{
+    "Camera": {
+        "type": "perspective",
+        "position": [100, 600, 1000],
+        "lookAt": [200, 250, 400],
+        "planeDistance": 1000,
+        "pixSize": 0.25
+    },
+    "Resolution": [1920, 1080],
+    "Shadows": true,
+	"MaxRecursionDepth": 4,
+    "SuperSamplingFactor": 4,
+    "Cel": 0,
+    "Lights": [
+        {
+            "position": [-200, 600, 1500],
+            "color": [1, 1, 1]
+        }
+    ],
+    "Objects": [
+        {
+            "type": "sphere",
+            "comment": "Blue sphere",
+            "position": [90, 320, 100],
+            "radius": 50,
+            "material":
+            {
+                "color": [0.0, 0.0, 1.0],
+                "ka": 0.2,
+                "kd": 0.7,
+                "ks": 0,
+                "n": 64
+            }
+        },
+        {
+            "type": "union",
+            "position": [200, 200, 400],
+            "a": {
+                "type": "difference",
+                "a": {
+                    "type": "intersection",
+                    "a": {
+                        "type": "infiniteCylinder",
+                        "radius": 50,
+                        "material":
+                        {
+                            "color": [0.1, 0.73, 0.61],
+                            "ka": 0.0,
+                            "kd": 0,
+                            "ks": 1,
+                            "n": 32,
+                            "transparent": true,
+                            "eta": 1.52
+                        }
+                    },
+                    "b": {
+                        "type": "box",
+                        "vmin": [-50, 0, -50],
+                        "vmax": [50, 100, 50],
+                        "material":
+                        {
+                            "color": [0.1, 0.73, 0.61],
+                            "ka": 0.0,
+                            "kd": 0,
+                            "ks": 1,
+                            "n": 32,
+                            "transparent": true,
+                            "eta": 1.52
+                        }
+                    }
+                },
+                "b": {
+                    "type": "intersection",
+                    "a": {
+                        "type": "infiniteCylinder",
+                        "radius": 40,
+                        "material":
+                        {
+                            "color": [0.1, 0.73, 0.61],
+                            "ka": 0.0,
+                            "kd": 0,
+                            "ks": 1,
+                            "n": 32,
+                            "transparent": true,
+                            "eta": 0.66
+                        }
+                    },
+                    "b": {
+                        "type": "box",
+                        "vmin": [-40, 10, -40],
+                        "vmax": [40, 100, 40],
+                        "material":
+                        {
+                            "color": [0.1, 0.73, 0.61],
+                            "ka": 0.0,
+                            "kd": 0,
+                            "ks": 1,
+                            "n": 32,
+                            "transparent": true,
+                            "eta": 0.66
+                        }
+                    }
+                }
+            },
+            "b": {
+                "type": "difference",
+                "a": {
+                    "type": "torus",
+                    "major": 30,
+                    "minor": 10,
+                    "rotationAxis": [1, 0, 0],
+                    "angle": 90,
+                    "position": [-50, 50, 0],
+                    "material":
+                    {
+                        "color": [0.1, 0.73, 0.61],
+                        "ka": 0.0,
+                        "kd": 0,
+                        "ks": 1,
+                        "n": 32,
+                        "transparent": true,
+                        "eta": 1.52
+                    }
+                },
+                "b": {
+                    "type": "infiniteCylinder",
+                    "radius": 50,
+                    "material":
+                    {
+                        "color": [0.1, 0.73, 0.61],
+                        "ka": 0.0,
+                        "kd": 0,
+                        "ks": 1,
+                        "n": 32,
+                        "transparent": true,
+                        "eta": 0.66
+                    }
+                }
+            }
+        },
+        {
+            "type": "cylinder",
+            "comment": "Orange cylinder",
+            "position": [110, 130, 200],
+            "radius": 50,
+            "height": 50,
+            "material":
+            {
+                "color": [1.0, 0.5, 0.0],
+                "ka": 0.2,
+                "kd": 0.8,
+                "ks": 0,
+                "n": 32
+            }
+        },
+        {
+            "type": "sphere",
+            "comment": "Grey sphere",
+            "position": [200, 200, -1000],
+            "radius": 1000,
+            "material":
+            {
+                "color": [0.4, 0.4, 0.4],
+                "ka": 0.2,
+                "kd": 0.8,
+                "ks": 0,
+                "n": 1
+            }
+        }
+    ]
+}

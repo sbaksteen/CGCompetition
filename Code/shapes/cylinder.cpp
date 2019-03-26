@@ -25,10 +25,13 @@ Hit Cylinder::intersect(Ray const &ray)
 			validSolutions.push_back(n);
 		}
 	}
-	if (validSolutions.size() == 0) {
+	if (validSolutions.empty()) {
 		return Hit::NO_HIT();
 	}
 	double solution = minPos(validSolutions);
+	if (solution < 0) {
+	    return Hit::NO_HIT();
+	}
 	Point i = ray.at(solution);
 	Point xzi = Point(i.x, 0, i.z);
 	Vector N = xzi;

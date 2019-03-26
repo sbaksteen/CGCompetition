@@ -56,21 +56,35 @@
                 "n": 32
             }
         },
-		{
-			"type": "cylinder",
-			"comment": "A yellow cylinder!",
-			"position": [200, 50, 0],
-			"radius": 50,
-			"height": 150,
-			"material":
-            {
-                "color": [1, 1, 0],
-                "ka": 0.1,
-                "kd": 0.7,
-                "ks": 0.3,
-                "n": 32
-            }
-		},
+      {
+        "type": "intersection",
+        "position": [200,50,0],
+        "a": {
+          "type": "infiniteCylinder",
+          "comment": "A yellow cylinder!",
+          "radius": 50,
+          "material":
+          {
+            "color": [1, 1, 0],
+            "ka": 0.1,
+            "kd": 0.7,
+            "ks": 0.3,
+            "n": 32
+          }
+        },
+        "b": {
+          "type": "box",
+          "vmin": [-50, 0, -50],
+          "vmax": [50, 100, 50],
+          "material": {
+            "color": [1, 1, 0],
+            "ka": 0.1,
+            "kd": 0.7,
+            "ks": 0.3,
+            "n": 32
+          }
+        }
+      },
 		{
 			"type": "cone",
 			"comment": "A red cone!",

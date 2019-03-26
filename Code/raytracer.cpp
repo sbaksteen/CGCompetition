@@ -26,6 +26,7 @@
 #include "shapes/union.h"
 #include "shapes/intersection.h"
 #include "shapes/difference.h"
+#include "shapes/infiniteCylinder.h"
 
 // =============================================================================
 // -- End of shape includes ----------------------------------------------------
@@ -49,6 +50,14 @@ Matrix44 constructMatrix(json const &node) {
 	if (node.count("position")) {
 		Vector translate(node["position"]);
 		transformMat.translate(translate);
+	}
+	if (node.count("rotations")) {
+	    for (auto const &rotationNode : node["rotations"]) {
+	        Vector axis(rotationNode["axis"]);
+	        double angle(rotationNode["angle"]);
+	        angle *= M_PI/180;
+	        transformMat.rotate(axis, angle);
+	    }
 	}
 	if (node.count("rotationAxis")) {
 		if (!node.count("angle")) {
@@ -100,6 +109,9 @@ ClosedPtr Raytracer::parseClosedObject(json const &node) {
 		ClosedPtr o1 = parseClosedObject(node["a"]);
 		ClosedPtr o2 = parseClosedObject(node["b"]);
 		obj = ClosedPtr(new Difference(o1, o2));
+	} else if (node["type"] == "infiniteCylinder") {
+	    double r(node["radius"]);
+	    obj = ClosedPtr(new InfiniteCylinder(r));
 	}
 	else 
     {
@@ -221,25 +233,24 @@ bool Raytracer::parseObjectNode(json const &node)
 		OBJLoader* mesh = new OBJLoader(fp);
 		vector<Vertex> verts = mesh->vertex_data();
 		vector<Vertex> unitizedVerts = mesh->unitize(verts);
-		vector<Vertex> scaledVerts = mesh->scale(200, unitizedVerts);
 		Matrix44 transformMat = constructMatrix(node);
 		Matrix44 invTran = transformMat.inverse().transposed();
 		Material mat = parseMaterialNode(node["material"]);
-		for (unsigned i = 0; i < scaledVerts.size(); i++) {
-			Point p = Point(scaledVerts[i].x, scaledVerts[i].y, scaledVerts[i].z);
+		for (auto &scaledVert : unitizedVerts) {
+			Point p = Point(scaledVert.x, scaledVert.y, scaledVert.z);
 			p = transformMat * p;
-			scaledVerts[i].x = p.x;
-			scaledVerts[i].y = p.y;
-			scaledVerts[i].z = p.z;
-			Vector n = Point(scaledVerts[i].nx, scaledVerts[i].ny, scaledVerts[i].nz);
+            scaledVert.x = p.x;
+            scaledVert.y = p.y;
+            scaledVert.z = p.z;
+			Vector n = Point(scaledVert.nx, scaledVert.ny, scaledVert.nz);
 			n = invTran * n;
-			scaledVerts[i].nx = n.x;
-			scaledVerts[i].ny = n.y;
-			scaledVerts[i].nz = n.z;
+            scaledVert.nx = n.x;
+            scaledVert.ny = n.y;
+            scaledVert.nz = n.z;
 
 		}
-		for (int i = 0; i < scaledVerts.size(); i += 3) {
-			obj = ObjectPtr(new Triangle(scaledVerts[i], scaledVerts[i+1], scaledVerts[i+2], s));
+		for (int i = 0; i < unitizedVerts.size(); i += 3) {
+			obj = ObjectPtr(new Triangle(unitizedVerts[i], unitizedVerts[i+1], unitizedVerts[i+2], s));
 			obj->material = mat;
 			scene.addObject(obj);
 		}
@@ -256,7 +267,10 @@ bool Raytracer::parseObjectNode(json const &node)
 		ClosedPtr o1 = parseClosedObject(node["a"]);
 		ClosedPtr o2 = parseClosedObject(node["b"]);
 		obj = ObjectPtr(new Difference(o1, o2));
-	}
+	} else if (node["type"] == "infiniteCylinder") {
+        double r(node["radius"]);
+        obj = ObjectPtr(new InfiniteCylinder(r));
+    }
 	else {
         cerr << "Unknown object type: " << node["type"] << ".\n";
     }

@@ -8,4 +8,4 @@ set(CMAKE_CXX_FLAGS "-Wall --std=c++14 -fopenmp")
 # Set all CPP files to be source files
 file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Code/*.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} Code/shapes/infiniteCylinder.cpp Code/shapes/infiniteCylinder.h)

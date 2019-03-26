@@ -32,6 +32,9 @@ Hit Cone::intersect(Ray const &ray)
 		return Hit::NO_HIT();
 	}
 	double solution = minPos(validSolutions);
+	if (solution < 0) {
+		return Hit::NO_HIT();
+	}
 	Point i = ray.at(solution);
 	Point xzi = Point(i.x, 0, i.z);
 	Vector N = xzi;
