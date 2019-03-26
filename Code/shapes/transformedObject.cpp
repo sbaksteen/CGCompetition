@@ -32,5 +32,15 @@ BBox TransformedObject::boundingBox() const {
 	Point tmax = transformMat * b.vmax;
 	Point vmin = Point(fmin(tmin.x, tmax.x), fmin(tmin.y, tmax.y), fmin(tmin.z, tmax.z));
 	Point vmax = Point(fmax(tmin.x, tmax.x), fmax(tmin.y, tmax.y), fmax(tmin.z, tmax.z));
+	for (int xi = 0; xi != 2; xi++) {
+		for (int yi = 0; yi != 2; yi++) {
+			for (int zi = 0; zi != 2; zi++) {
+				Point p = Point(xi ? b.vmax.x : b.vmin.x, yi ? b.vmax.y : b.vmin.y, zi ? b.vmax.z : b.vmin.z);
+				p = transformMat * p;
+				vmin = Point(fmin(vmin.x, p.x), fmin(vmin.y, p.y), fmin(vmin.z, p.z));
+				vmax = Point(fmax(vmax.x, p.x), fmax(vmax.y, p.y), fmax(vmax.z, p.z));
+			}
+		}
+	}
 	return BBox(vmin, vmax);
 }
