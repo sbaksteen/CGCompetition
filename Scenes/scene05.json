@@ -40,6 +40,7 @@
 			"position": [200, 100, 400],
 			"rotationAxis": [0, 1, 0],
 			"angle": -60,
+            "uniformScale": 180,
             "material":
             {
                 "color": [0.5, 0.5, 0.5],

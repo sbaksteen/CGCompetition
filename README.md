@@ -27,4 +27,7 @@ Refraction is modeled for transparent objects, resulting in realistic-looking re
 Two types of camera are supported: orthographic and perspective. The camera's position and look direction, as well as
 field of view for perspective cameras, can all be adjusted in scene files.
 
-![Camera examples](Scenes/cameras.png)
+## Matrix transformation
+
+All objects can be translated, rotated, and scaled without introducing extra mathematical complexity in the ray-intersect
+functions of those primitives, through matrix transformation.

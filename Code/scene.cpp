@@ -161,7 +161,7 @@ void Scene::render(Image &img)
         boxes.push_back(objects[i]->boundingBox());
     }
 
-    tree = new ObjTree(objects, boxes, 5);
+    tree = new ObjTree(objects, boxes, 15);
     
     #pragma omp parallel for
     for (unsigned y = 0; y < h; ++y)

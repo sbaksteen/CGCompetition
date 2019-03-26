@@ -4,11 +4,12 @@
     "position": [0, 0, 19.9],
     "lookAt": [0, 0, 0],
     "planeDistance": 3,
-    "pixSize": 0.01
+    "pixSize": 0.0039
   },
+  "Resolution": [1024, 1024],
   "Shadows": true,
   "MaxRecursionDepth": 5,
-  "SuperSamplingFactor": 4,
+  "SuperSamplingFactor": 1,
   "Cel": 0,
   "Lights": [
     {
@@ -158,7 +159,7 @@
       "filepath": "../Scenes/cat.obj",
       "shading": "phong",
       "uniformScale": 8,
-      "position": [5, -9.3, -5],
+      "position": [5, -10, -5],
       "rotationAxis": [0, 1, 0],
       "angle": -130,
       "material":
@@ -167,6 +168,24 @@
         "ka": 0.0,
         "kd": 0.0,
         "ks": 1,
+        "n": 32
+      }
+    },
+    {
+      "type": "mesh",
+      "comment": "Some object",
+      "filepath": "../Scenes/teapot.obj",
+      "shading": "phong",
+      "uniformScale": 4,
+      "position": [0, -8, 0],
+      "rotationAxis": [0, 1, 0],
+      "angle": 60,
+      "material":
+      {
+        "color": [0.1, 0.74, 0.61],
+        "ka": 0.1,
+        "kd": 0.7,
+        "ks": 0,
         "n": 32
       }
     },
